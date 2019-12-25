@@ -11,10 +11,10 @@
  */
 const Web3 = require('web3');
 const HDWalletProvider = require('truffle-hdwallet-provider');
-const { seed } = require('../contract/seed');
+// const { seed } = require('../contract/seed');
 
 const provider = new HDWalletProvider(
-  seed,
+  process.env.SEED,
   `https://rinkeby.infura.io/v3/${process.env.INFURAKEY}`
 );
 const web3 = new Web3(provider);
