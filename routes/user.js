@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable eqeqeq */
 /*
  * SPDX-License-Identifier: Apache-2.0
@@ -20,6 +21,7 @@ const User = require('../models/user');
 const mailer = require('../helpers/mail');
 const { authenticate } = require('../middleware/authenticate');
 require('../config/config');
+const investorModel = require('../models/investor');
 
 const awaitHandler = fn => {
   return async (req, res, next) => {
@@ -103,10 +105,18 @@ router.post(
 
       User.findByCredentials(body.email, body.password)
         .then(user => {
-          return user.generateAuthToken().then(token => {
+          return user.generateAuthToken().then(async token => {
+            const tempInv = await investorModel.findOne({
+              investorId: user._id,
+            });
+            let investor = false;
+            if (tempInv) {
+              investor = true;
+            }
             res.header('x-auth', token).send({
               response: `${user.email} succesfully logged in`,
               token: user.tokens,
+              investor,
             });
           });
         })

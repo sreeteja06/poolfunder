@@ -49,7 +49,7 @@ router.post(
       projectName: req.body.projectName,
     });
     await project.save();
-    res.send(x);
+    res.send({ projectID: i, TransactionDetails: x });
   })
 );
 

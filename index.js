@@ -31,6 +31,8 @@ app.use(require('./routes/user'));
 app.use(require('./routes/project'));
 app.use(require('./routes/investor'));
 
+app.set('view engine', 'ejs');
+
 const port = process.env.PORT || 1337;
 
 // eslint-disable-next-line no-unused-vars
