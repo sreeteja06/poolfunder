@@ -17,7 +17,7 @@ const { authenticate } = require('../middleware/authenticate');
 
 const InvestorModel = require('../models/investor');
 const ProjectModel = require('../models/project');
-
+const UserModel = require('../models/user');
 // const web3 = require('../helpers/web3');
 const contractInt = require('../helpers/MainContract');
 const signTrans = require('../helpers/signTrans');
@@ -85,6 +85,15 @@ router.get(
       });
     }
     res.send({ projectDetails });
+  })
+);
+
+router.get(
+  '/getProjectDetails',
+  awaitHandler(async (req, res) => {
+    const project = await contractInt.methods.mappedPro(10).call();
+    const user = await UserModel.findOne({ _id: project.proOwner });
+    res.send({ project, user });
   })
 );
 
