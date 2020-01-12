@@ -46,7 +46,7 @@ router.post(
       }
       const body = {
         email: req.body.email,
-        password: req.body.password,``
+        password: req.body.password,
         firstname: req.body.firstname,
         lastname: req.body.lastname,
         phone: req.body.phone,
