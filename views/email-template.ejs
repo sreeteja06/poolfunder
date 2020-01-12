@@ -1,76 +1,159 @@
-<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet" type="text/css">
-<div style="width:100%;background:#DDEDFD;padding:60px 0px;font-family:Montserrat;color:#404040;">
-<table border="0" cellpadding="0" cellspacing="0" width="800" style="float:none;margin:0 auto;background:#FFF;">
-	<tr>
-    	<th style="background:#6F63C3;padding:10px;">
-        	<table border="0" cellpadding="0" cellspacing="0">
-            <tr>
-            	<td width="60">
-        			<img src="https://poolfunders.com/wp-content/uploads/2019/12/PF-Logo-hexa-1.png" style="width:100%;height:60px;overflow:hidden;">
-                </td>
-                <td>
-                	<h1 style="line-height:60px;margin:0px;padding:0px;margin-left:20px;color:#FFF;">The Pool Founders</h1>
-                </td>
-              </tr>  
-            </table>        
-        </th>
+<link
+  href="https://fonts.googleapis.com/css?family=Montserrat"
+  rel="stylesheet"
+  type="text/css"
+/>
+<div
+  style="width:100%;background:#DDEDFD;padding:60px 0px;font-family:Montserrat;color:#404040;"
+>
+  <table
+    border="0"
+    cellpadding="0"
+    cellspacing="0"
+    width="800"
+    style="float:none;margin:0 auto;background:#FFF;"
+  >
+    <tr>
+      <th style="background:#6F63C3;padding:10px;">
+        <table border="0" cellpadding="0" cellspacing="0">
+          <tr>
+            <td width="60">
+              <img
+                src="https://poolfunders.com/wp-content/uploads/2019/12/PF-Logo-hexa-1.png"
+                style="width:100%;height:60px;overflow:hidden;"
+              />
+            </td>
+            <td>
+              <h1
+                style="line-height:60px;margin:0px;padding:0px;margin-left:20px;color:#FFF;"
+              >
+                The Pool Founders
+              </h1>
+            </td>
+          </tr>
+        </table>
+      </th>
     </tr>
     <tr>
-    	<td style="padding:20px;">
-        	<h3 style="color:#010101;font-size:22px;line-height:30px;"><span style=" border-bottom:1px solid #010101;">Contract Terms of the projects:</span></h3>
-            <div style="margin-top:30px;line-height:28px;font-size:15px;">
-            	<p>This contract is between ####Name###, ### address##, ##Email##, ##Phone## and ##PAN##</p>
-                <p><strong>And</strong></p>
-                <p>###Investor marker### having contact details as ##address##, ##Email## ##Phone## and ##PAN##</p>
-                <p><strong>To certify that :</strong></p>
-                <p>###Investor name### has invested the amount of INR ##Payment made ## to back this ## company/project name## and therefore, is entitled to receive ### percentage convertible notes (get from node API) ###</p>
-                
-            </div>            
-        </td>
+      <td style="padding:20px;">
+        <h3 style="color:#010101;font-size:22px;line-height:30px;">
+          <span style=" border-bottom:1px solid #010101;"
+            >Contract Terms of the projects:</span
+          >
+        </h3>
+        <div style="margin-top:30px;line-height:28px;font-size:15px;">
+          <p>
+            This contract is between <%= details.proCreatorName + ", " +
+            details.proCreatorAdd + ", " + details.proCreatorEmail + ", " +
+            details.proCreatorPhone + ", " + details.proCreatorPan %>
+          </p>
+          <p><strong>And</strong></p>
+          <p>
+            <%= details.investorName %> having contact details as <%=
+            details.investorAdd + ", " + details.investorEmail + ", " +
+            details.investorPhone + ", " + details.investorPan %> 
+          </p>
+          <p><strong>To certify that :</strong></p>
+          <p>
+            <%= details.investorName %> has invested the amount of INR <%= details.paymentAmount %>
+            to back this <%= details.projectName %> and therefore, is entitled to
+            receive share of <%= details.share %>% and convertable <%= details.conv %>%
+          </p>
+        </div>
+      </td>
     </tr>
     <tr>
-    	<td  style="padding:20px;">
-        	<h3>With condition that:</h3>
-            
-        	<table border="0" width="100%" cellpadding="0" cellspacing="0"  style="line-height:28px;font-size:15px;">
-            	<tr>
-                	<td width="20" valign="top"><strong>1.</strong></td>
-                    <td  valign="top">The convertibles notes will be paid back at 8% yearly interest after three years, albeit company is profitable by the end of third year.
-</td>
-                </tr>
-                <tr>
-                	<td colspan="2" style="padding:15px 0px;text-align:center;"> <strong>OR</strong> </td>
-                </tr>
-                <tr>
-                	<td width="10"  valign="top"><strong>2.</strong></td>
-                    <td  valign="top">May be converted into common shares (as a dynamically calculated percentage quota out of 10% allocated venture capitalist share for this funding goal) as per share capital distribution model </td>
-                </tr>
-            </table>
-        </td>
+      <td style="padding:20px;">
+        <h3>With condition that:</h3>
+
+        <table
+          border="0"
+          width="100%"
+          cellpadding="0"
+          cellspacing="0"
+          style="line-height:28px;font-size:15px;"
+        >
+          <tr>
+            <td width="20" valign="top"><strong>1.</strong></td>
+            <td valign="top">
+              The convertibles notes will be paid back at 8% yearly interest
+              after three years, albeit company is profitable by the end of
+              third year.
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" style="padding:15px 0px;text-align:center;">
+              <strong>OR</strong>
+            </td>
+          </tr>
+          <tr>
+            <td width="10" valign="top"><strong>2.</strong></td>
+            <td valign="top">
+              May be converted into common shares (as a dynamically calculated
+              percentage quota out of 10% allocated venture capitalist share for
+              this funding goal) as per share capital distribution model
+            </td>
+          </tr>
+        </table>
+      </td>
     </tr>
     <tr>
-    	<td  style="padding:20px;">
-        	<h3>Payment release:</h3>
-            <p style="line-height:28px;font-size:15px;">There will be an escrow account for every investor where the money will be kept after investments and will be disbursed to startup/projects only when they reach certain promised milestone as per payment release clause given below</p>
-            <p>&nbsp;</p>
-            <p  style="line-height:28px;font-size:15px;">To protect backers/investors interest and money, Poolfunders has defined a workflow where money would be released in three stages</p>
-            <ul  style="line-height:28px;font-size:15px;margin:25px 0px;">
-            	<li style="margin-bottom:15px;">First stage: 25% release after the campaign has ended on PoolFunders platform.</li>
-                <li  style="margin-bottom:15px;">Second stage: 40% once the first milestone has been met and fund utilisation has been made in proper use. (check:Funds approval process)</li>
-                <li  style="margin-bottom:15px;">Third stage: 35% once the Second milestone has been met in accordance with proper fund utilisations. (check:Funds approval process)</li>
-            </ul>
-            <p style="line-height:28px;font-size:15px;">Failure to meet any of the above KPIs would result in the refund of remaining money, at that stage, back to investors.</p>
-            <p  style="line-height:28px;font-size:15px;">Also note that, if the idea of product/service for which campaign is started turns out to be copyright infringed, then the funding remaining amount would be returned back to investor and Owner will be blacklisted from our platform and may get possible chances of legal action.</p>
-            <p  style="line-height:28px;font-size:15px;">And finally, you understand that investing in startups are highly risky and you may lose part or all of your amount if your invested startups fails</p>
-        </td>
-    </tr>    
-    <tr>
-    	<td  style="padding:10px;">&nbsp;&nbsp;</td>
+      <td style="padding:20px;">
+        <h3>Payment release:</h3>
+        <p style="line-height:28px;font-size:15px;">
+          There will be an escrow account for every investor where the money
+          will be kept after investments and will be disbursed to
+          startup/projects only when they reach certain promised milestone as
+          per payment release clause given below
+        </p>
+        <p>&nbsp;</p>
+        <p style="line-height:28px;font-size:15px;">
+          To protect backers/investors interest and money, Poolfunders has
+          defined a workflow where money would be released in three stages
+        </p>
+        <ul style="line-height:28px;font-size:15px;margin:25px 0px;">
+          <li style="margin-bottom:15px;">
+            First stage: 25% release after the campaign has ended on PoolFunders
+            platform.
+          </li>
+          <li style="margin-bottom:15px;">
+            Second stage: 40% once the first milestone has been met and fund
+            utilisation has been made in proper use. (check:Funds approval
+            process)
+          </li>
+          <li style="margin-bottom:15px;">
+            Third stage: 35% once the Second milestone has been met in
+            accordance with proper fund utilisations. (check:Funds approval
+            process)
+          </li>
+        </ul>
+        <p style="line-height:28px;font-size:15px;">
+          Failure to meet any of the above KPIs would result in the refund of
+          remaining money, at that stage, back to investors.
+        </p>
+        <p style="line-height:28px;font-size:15px;">
+          Also note that, if the idea of product/service for which campaign is
+          started turns out to be copyright infringed, then the funding
+          remaining amount would be returned back to investor and Owner will be
+          blacklisted from our platform and may get possible chances of legal
+          action.
+        </p>
+        <p style="line-height:28px;font-size:15px;">
+          And finally, you understand that investing in startups are highly
+          risky and you may lose part or all of your amount if your invested
+          startups fails
+        </p>
+      </td>
     </tr>
     <tr>
-    	<td style="background:#34495E;padding:30px 0px;text-align:center;color:#FFF;">
-        	<p>Copyright © 2019 The Pool Funders. All Rights Reserved.</p>
-        </td>
+      <td style="padding:10px;">&nbsp;&nbsp;</td>
     </tr>
-</table>
+    <tr>
+      <td
+        style="background:#34495E;padding:30px 0px;text-align:center;color:#FFF;"
+      >
+        <p>Copyright © 2019 The Pool Funders. All Rights Reserved.</p>
+      </td>
+    </tr>
+  </table>
 </div>

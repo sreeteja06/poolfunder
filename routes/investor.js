@@ -21,6 +21,7 @@ const UserModel = require('../models/user');
 // const web3 = require('../helpers/web3');
 const contractInt = require('../helpers/MainContract');
 const signTrans = require('../helpers/signTrans');
+const mailer = require('../helpers/mail');
 
 const awaitHandler = fn => {
   return async (req, res, next) => {
@@ -88,15 +89,6 @@ router.get(
   })
 );
 
-router.get(
-  '/getProjectDetails',
-  awaitHandler(async (req, res) => {
-    const project = await contractInt.methods.mappedPro(10).call();
-    const user = await UserModel.findOne({ _id: project.proOwner });
-    res.send({ project, user });
-  })
-);
-
 router.post(
   '/investInProject',
   authenticate,
@@ -121,7 +113,47 @@ router.post(
       { projectId: req.body.projectID },
       { $push: { investors: contractInvestorId } }
     );
-    res.send(x);
+    const project = await contractInt.methods
+      .mappedPro(req.body.projectID)
+      .call();
+    const investorDetails = await UserModel.findOne({
+      _id: req.user._id,
+    });
+    const projectCreatorDetails = await UserModel.findOne({
+      _id: project.proOwner,
+    });
+    const share = await contractInt.methods
+      .getShareAndConv(contractInvestorId, req.body.projectID)
+      .call();
+    const details = {
+      proCreatorName: `firstname lastname`,
+      proCreatorAdd: 'project creator address',
+      proCreatorEmail: projectCreatorDetails.email,
+      proCreatorPhone: 'phone',
+      proCreatorPan: 'pan',
+      investorName: 'investor name',
+      investorAdd: 'investor address',
+      investorEmail: investorDetails.email,
+      investorPhone: 'phone',
+      investorPan: 'pan',
+      paymentAmount: req.body.investAmt,
+      projectName: `project ${project.proName}`,
+      share: share.share,
+      conv: share.conv,
+    };
+    res.render('email-template.ejs', { details }, (err, html) => {
+      if (err) {
+        throw new Error(err);
+      } else {
+        mailer(
+          'Investment Reciept for the project you invested via PoolFunder',
+          html,
+          investorDetails.email,
+          true
+        );
+        res.send(html);
+      }
+    });
   })
 );
 
