@@ -38,10 +38,13 @@ const UserSchema = new mongoose.Schema({
   lastname: {
     type: String,
   },
-  aadhar: {
+  pan: {
     type: String,
   },
-  pan: {
+  address: {
+    type: String,
+  },
+  phone: {
     type: String,
   },
   memberType: {

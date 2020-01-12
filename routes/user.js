@@ -46,10 +46,10 @@ router.post(
       }
       const body = {
         email: req.body.email,
-        password: req.body.password,
+        password: req.body.password,``
         firstname: req.body.firstname,
         lastname: req.body.lastname,
-        aadhar: req.body.aadhar,
+        phone: req.body.phone,
         pan: req.body.pan,
         memberType: req.body.memberType,
         OTP,
