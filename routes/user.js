@@ -52,6 +52,7 @@ router.post(
         phone: req.body.phone,
         pan: req.body.pan,
         memberType: req.body.memberType,
+        address: req.body.address,
         OTP,
       };
       const user = new User(body);
