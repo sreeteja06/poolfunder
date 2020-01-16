@@ -151,6 +151,12 @@ router.post(
           investorDetails.email,
           true
         );
+        mailer(
+          `Investment Reciept for the project ${investorDetails.firstname} ${investorDetails.lastname} invested via PoolFunder`,
+          html,
+          projectCreatorDetails.email,
+          true
+        );
         res.send(html);
       }
     });
