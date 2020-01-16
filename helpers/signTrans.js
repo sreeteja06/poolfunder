@@ -14,7 +14,7 @@ const EthereumTx = require('ethereumjs-tx');
 const web3 = require('./web3');
 
 const instantiateContract = async functionAbi => {
-  web3.eth.defaultAccount = '0x4c1e9d26Ec8311f48Bc03662eE8108Bd23Edcb30';
+  web3.eth.defaultAccount = '0xC3851CCc7D6e9eC418400b1A67D408F9d0e3554c';
   const pk = process.env.PK; // private key of your account
   const address = '0x19f98D7e669e70B07Be0DE9F712B09B069cA6369'; // Contract Address
   const nonce = await web3.eth.getTransactionCount(web3.eth.defaultAccount);
