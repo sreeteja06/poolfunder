@@ -93,73 +93,78 @@ router.post(
   '/investInProject',
   authenticate,
   awaitHandler(async (req, res) => {
-    const { contractInvestorId } = await InvestorModel.findOne({
-      investorId: req.user._id,
-    });
-    const functionAbi = contractInt.methods
-      .invest(
-        contractInvestorId,
-        req.body.projectID,
-        req.user._id.toString(),
-        req.body.investAmt
-      )
-      .encodeABI();
-    const x = await signTrans(functionAbi);
-    await InvestorModel.findOneAndUpdate(
-      { investorId: req.user._id },
-      { $push: { investedIn: req.body.projectID } }
-    );
-    await ProjectModel.findOneAndUpdate(
-      { projectId: req.body.projectID },
-      { $push: { investors: contractInvestorId } }
-    );
-    const project = await contractInt.methods
-      .mappedPro(req.body.projectID)
-      .call();
     const investorDetails = await UserModel.findOne({
       _id: req.user._id,
     });
-    const projectCreatorDetails = await UserModel.findOne({
-      _id: project.proOwner,
-    });
-    const share = await contractInt.methods
-      .getShareAndConv(contractInvestorId, req.body.projectID)
-      .call();
-    const details = {
-      proCreatorName: `${projectCreatorDetails.firstname} ${projectCreatorDetails.lastname}`,
-      proCreatorAdd: `${projectCreatorDetails.address}`,
-      proCreatorEmail: projectCreatorDetails.email,
-      proCreatorPhone: `${projectCreatorDetails.phone}`,
-      proCreatorPan: `${projectCreatorDetails.pan}`,
-      investorName: `${investorDetails.firstname} ${investorDetails.lastname}`,
-      investorAdd: `${investorDetails.address}`,
-      investorEmail: investorDetails.email,
-      investorPhone: `${investorDetails.phone}`,
-      investorPan: `${investorDetails.pan}`,
-      paymentAmount: req.body.investAmt,
-      projectName: `project ${project.proName}`,
-      share: share.share,
-      conv: share.conv,
-    };
-    res.render('email-template.ejs', { details }, (err, html) => {
-      if (err) {
-        throw new Error(err);
-      } else {
-        mailer(
-          'Investment Reciept for the project you invested via PoolFunder',
-          html,
-          investorDetails.email,
-          true
-        );
-        mailer(
-          `Investment Reciept for the project ${investorDetails.firstname} ${investorDetails.lastname} invested via PoolFunder`,
-          html,
-          projectCreatorDetails.email,
-          true
-        );
-        res.send(html);
-      }
-    });
+    if (!investorDetails.pan) {
+      res.send({ err: 'user details not filled' });
+    } else {
+      const { contractInvestorId } = await InvestorModel.findOne({
+        investorId: req.user._id,
+      });
+      const functionAbi = contractInt.methods
+        .invest(
+          contractInvestorId,
+          req.body.projectID,
+          req.user._id.toString(),
+          req.body.investAmt
+        )
+        .encodeABI();
+      const x = await signTrans(functionAbi);
+      console.log(x);
+      await InvestorModel.findOneAndUpdate(
+        { investorId: req.user._id },
+        { $push: { investedIn: req.body.projectID } }
+      );
+      await ProjectModel.findOneAndUpdate(
+        { projectId: req.body.projectID },
+        { $push: { investors: contractInvestorId } }
+      );
+      const project = await contractInt.methods
+        .mappedPro(req.body.projectID)
+        .call();
+      const projectCreatorDetails = await UserModel.findOne({
+        _id: project.proOwner,
+      });
+      const share = await contractInt.methods
+        .getShareAndConv(contractInvestorId, req.body.projectID)
+        .call();
+      const details = {
+        proCreatorName: `${projectCreatorDetails.firstname} ${projectCreatorDetails.lastname}`,
+        proCreatorAdd: `${projectCreatorDetails.address}`,
+        proCreatorEmail: projectCreatorDetails.email,
+        proCreatorPhone: `${projectCreatorDetails.phone}`,
+        proCreatorPan: `${projectCreatorDetails.pan}`,
+        investorName: `${investorDetails.firstname} ${investorDetails.lastname}`,
+        investorAdd: `${investorDetails.address}`,
+        investorEmail: investorDetails.email,
+        investorPhone: `${investorDetails.phone}`,
+        investorPan: `${investorDetails.pan}`,
+        paymentAmount: req.body.investAmt,
+        projectName: `project ${project.proName}`,
+        share: share.share,
+        conv: share.conv,
+      };
+      res.render('email-template.ejs', { details }, (err, html) => {
+        if (err) {
+          throw new Error(err);
+        } else {
+          mailer(
+            'Investment Reciept for the project you invested via PoolFunder',
+            html,
+            investorDetails.email,
+            true
+          );
+          mailer(
+            `Investment Reciept for the project ${investorDetails.firstname} ${investorDetails.lastname} invested via PoolFunder`,
+            html,
+            projectCreatorDetails.email,
+            true
+          );
+          res.send(html);
+        }
+      });
+    }
   })
 );
 

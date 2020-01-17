@@ -15,6 +15,7 @@ const router = express.Router();
 const { authenticate } = require('../middleware/authenticate');
 
 const ProjectModel = require('../models/project');
+const UserModel = require('../models/user');
 
 // const web3 = require('../helpers/web3');
 const contractInt = require('../helpers/MainContract');
@@ -34,22 +35,27 @@ router.post(
   '/newProject',
   authenticate,
   awaitHandler(async (req, res) => {
-    const functionAbi = contractInt.methods
-      .proDetails(
-        req.body.projectName,
-        req.body.projectAmt,
-        req.user._id.toString()
-      )
-      .encodeABI();
-    const x = await signTrans(functionAbi);
-    const i = await contractInt.methods.proId().call();
-    console.log(i);
-    const project = new ProjectModel({
-      projectId: i,
-      projectName: req.body.projectName,
-    });
-    await project.save();
-    res.send({ projectID: i, TransactionDetails: x });
+    const user = await UserModel.findOne({ _id: req.user._id });
+    if (!user.pan) {
+      res.send({ err: 'user details not filled' });
+    } else {
+      const functionAbi = contractInt.methods
+        .proDetails(
+          req.body.projectName,
+          req.body.projectAmt,
+          req.user._id.toString()
+        )
+        .encodeABI();
+      const x = await signTrans(functionAbi);
+      const i = await contractInt.methods.proId().call();
+      console.log(i);
+      const project = new ProjectModel({
+        projectId: i,
+        projectName: req.body.projectName,
+      });
+      await project.save();
+      res.send({ projectID: i, TransactionDetails: x });
+    }
   })
 );
 

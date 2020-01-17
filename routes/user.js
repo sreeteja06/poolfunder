@@ -34,6 +34,24 @@ const awaitHandler = fn => {
 };
 
 router.post(
+  '/userDetails',
+  awaitHandler(async (req, res) => {
+    const body = {
+      phone: req.body.phone,
+      pan: req.body.pan,
+      address: req.body.address,
+    };
+    User.findOneAndUpdate({ email: req.body.email }, body, (err, doc) => {
+      if (err) {
+        throw new Error(err);
+      }
+      console.log(doc);
+      res.sendStatus(200);
+    });
+  })
+);
+
+router.post(
   '/register',
   awaitHandler(async (req, res) => {
     const OTP = Math.floor(Math.random() * 100000);
