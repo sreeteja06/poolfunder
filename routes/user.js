@@ -35,6 +35,7 @@ const awaitHandler = fn => {
 
 router.post(
   '/userDetails',
+  authenticate,
   awaitHandler(async (req, res) => {
     const body = {
       phone: req.body.phone,
