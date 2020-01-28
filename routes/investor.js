@@ -75,14 +75,18 @@ router.get(
     });
     const projectDetails = [];
     for (let i = 0; i < investedIn.length; i += 1) {
+      // const calculatedShare = project.proAmt / req.body.investAmt;
+      const project = await contractInt.methods.mappedPro(investedIn[i]).call();
+      const invested = await contractInt.methods
+        .investRecord(contractInvestorId, investedIn[i])
+        .call();
       projectDetails.push({
-        project: await contractInt.methods.mappedPro(investedIn[i]).call(),
-        invested: await contractInt.methods
-          .investRecord(contractInvestorId, investedIn[i])
-          .call(),
+        project,
+        invested,
         share: await contractInt.methods
           .getShareAndConv(contractInvestorId, investedIn[i])
           .call(),
+        calculatedShare: (invested / project.proAmt) * 100,
       });
     }
     res.send({ projectDetails });
@@ -126,6 +130,7 @@ router.post(
       const projectCreatorDetails = await UserModel.findOne({
         _id: project.proOwner,
       });
+      const calculatedShare = (req.body.investAmt / project.proAmt) * 100;
       const share = await contractInt.methods
         .getShareAndConv(contractInvestorId, req.body.projectID)
         .call();
@@ -142,7 +147,7 @@ router.post(
         investorPan: `${investorDetails.pan}`,
         paymentAmount: req.body.investAmt,
         projectName: `project ${project.proName}`,
-        share: share.share,
+        share: calculatedShare,
         conv: share.conv,
       };
       res.render('email-template.ejs', { details }, (err, html) => {
