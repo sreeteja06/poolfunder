@@ -115,7 +115,7 @@ router.post(
         )
         .encodeABI();
       const x = await signTrans(functionAbi);
-      console.log(x);
+      console.log(x.transactionHash);
       await InvestorModel.findOneAndUpdate(
         { investorId: req.user._id },
         { $push: { investedIn: req.body.projectID } }
@@ -149,6 +149,7 @@ router.post(
         projectName: `project ${project.proName}`,
         share: calculatedShare,
         conv: share.conv,
+        transactionHash: x.transactionHash,
       };
       res.render('email-template.ejs', { details }, (err, html) => {
         if (err) {

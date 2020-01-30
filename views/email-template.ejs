@@ -41,23 +41,24 @@
             >Contract Terms of the projects:</span
           >
         </h3>
+        <div><p>tx-hash: <%= details.transactionHash %></p></div>
         <div style="margin-top:30px;line-height:28px;font-size:15px;">
           <p>
-            This contract is between <%= details.proCreatorName + ", " +
-            details.proCreatorAdd + ", " + details.proCreatorEmail + ", " +
-            details.proCreatorPhone + ", " + details.proCreatorPan %>
+            This contract is between <b><%= details.proCreatorName %></b>, from
+            <b><%= details.proCreatorAdd %></b> with email
+            <b><%= details.proCreatorEmail%></b>, phone
+            <b><%= details.proCreatorPhone%></b> and pan
+            <b><%= details.proCreatorPan%></b>
           </p>
           <p><strong>And</strong></p>
-          <p>
-            <%= details.investorName %> having contact details as <%=
-            details.investorAdd + ", " + details.investorEmail + ", " +
-            details.investorPhone + ", " + details.investorPan %> 
-          </p>
+          <p><b><%= details.investorName %></b> having contact details as</p>
           <p><strong>To certify that :</strong></p>
           <p>
-            <%= details.investorName %> has invested the amount of INR <%= details.paymentAmount %>
-            to back this <%= details.projectName %> and therefore, is entitled to
-            receive share of <%= details.share %>% and convertable <%= details.conv %>%
+            <b><%= details.investorName %></b> has invested the amount of INR
+            <b><%= details.paymentAmount %></b> to back this the project
+            <b><%= details.projectName %></b> and therefore, is entitled to
+            receive share of <b><%= details.share %>%</b> and convertable
+            <b><%= details.conv %>%</b>
           </p>
         </div>
       </td>
