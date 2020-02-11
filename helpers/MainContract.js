@@ -13,7 +13,7 @@ const abi = require('./abi.json');
 
 const instance = new web3.eth.Contract(
   abi,
-  '0x19f98D7e669e70B07Be0DE9F712B09B069cA6369'
+  '0xe72c51038B9b3b846Cdb58f3F111B4Fd77b63351'
 );
 
 module.exports = instance;

@@ -16,7 +16,7 @@ const web3 = require('./web3');
 const instantiateContract = async functionAbi => {
   web3.eth.defaultAccount = '0xC3851CCc7D6e9eC418400b1A67D408F9d0e3554c';
   const pk = process.env.PK; // private key of your account
-  const address = '0x19f98D7e669e70B07Be0DE9F712B09B069cA6369'; // Contract Address
+  const address = '0xe72c51038B9b3b846Cdb58f3F111B4Fd77b63351'; // Contract Address
   const nonce = await web3.eth.getTransactionCount(web3.eth.defaultAccount);
   console.log('nonce value is ', nonce);
   // const contract = new web3.eth.Contract(abi, address, {
